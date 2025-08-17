@@ -9,7 +9,18 @@ import {
   useAnimationControls,
   AnimatePresence,
 } from "framer-motion";
-import { ChevronDown, Download, Mail, Code, Zap, Sparkles, Database, Globe, Cpu, Shield } from "lucide-react";
+import {
+  ChevronDown,
+  Download,
+  Mail,
+  Code,
+  Zap,
+  Sparkles,
+  Database,
+  Globe,
+  Cpu,
+  Shield,
+} from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import { downloadCV } from "@/lib/utils";
 
@@ -44,32 +55,32 @@ const Hero = () => {
 
   const nameVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.8, 
+      transition: {
+        duration: 0.8,
         delay: 0.4,
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const letterVariants = {
     hidden: { opacity: 0, y: 20, rotateX: -90 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       rotateX: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
-    }
+      transition: { duration: 0.5, ease: "easeOut" as const },
+    },
   };
 
   // Typing effect for name
   useEffect(() => {
     const fullName = "Engr. Florante G. Clavano Jr.";
     let currentIndex = 0;
-    
+
     const typeInterval = setInterval(() => {
       if (currentIndex <= fullName.length) {
         setDisplayText(fullName.slice(0, currentIndex));
@@ -265,8 +276,8 @@ const Hero = () => {
           key={tech.name}
           className={`absolute ${tech.color} opacity-20`}
           style={{
-            left: `${20 + (index * 15)}%`,
-            top: `${30 + (index * 10)}%`,
+            left: `${20 + index * 15}%`,
+            top: `${30 + index * 10}%`,
           }}
           animate={{
             y: [0, -30, 0],
@@ -364,7 +375,7 @@ const Hero = () => {
                   scale: 1.2,
                   y: -10,
                   rotateY: 360,
-                  transition: { duration: 0.3 }
+                  transition: { duration: 0.3 },
                 }}
               >
                 {letter === " " ? "\u00A0" : letter}
@@ -505,9 +516,9 @@ const Hero = () => {
             <motion.div
               key={i}
               className={`absolute rounded-full ${
-                i % 3 === 0 
-                  ? "w-2 h-2 bg-blue-400/40" 
-                  : i % 3 === 1 
+                i % 3 === 0
+                  ? "w-2 h-2 bg-blue-400/40"
+                  : i % 3 === 1
                   ? "w-1 h-1 bg-purple-400/30"
                   : "w-1.5 h-1.5 bg-green-400/35"
               }`}
