@@ -2,12 +2,9 @@
 
 import {
   motion,
-  useScroll,
-  useTransform,
   useSpring,
   useMotionValue,
   useAnimationControls,
-  AnimatePresence,
 } from "framer-motion";
 import {
   ChevronDown,
@@ -31,12 +28,6 @@ const Hero = () => {
   const [isTyping, setIsTyping] = useState(true);
   const controls = useAnimationControls();
   const cursorRef = useRef<HTMLDivElement>(null);
-
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 300], [0, 100]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const scale = useTransform(scrollY, [0, 300], [1, 0.8]);
-  const rotate = useTransform(scrollY, [0, 300], [0, 5]);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -337,7 +328,6 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="space-y-8"
-          style={{ scale, rotate }}
         >
           {/* Greeting */}
           <motion.p
@@ -490,7 +480,6 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1.2 }}
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-            style={{ y, opacity }}
           >
             <motion.button
               onClick={scrollToAbout}
