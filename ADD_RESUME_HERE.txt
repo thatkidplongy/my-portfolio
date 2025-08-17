@@ -1,0 +1,1 @@
+To add your resume, place a PDF file named 'resume.pdf' in the public folder
