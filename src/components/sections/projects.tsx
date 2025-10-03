@@ -135,6 +135,27 @@ const Projects = () => {
       liveUrl: "https://sneakpeek-plongy.vercel.app/",
       featured: false,
     },
+    {
+      id: "5",
+      title: "BarBooks Management System",
+      description:
+        "A full-featured e-commerce website for sneakers, watches, and headsets. Includes product catalog, shopping cart, user authentication, and payment processing.",
+      image: "",
+      techStack: [
+        "React - Vite",
+        "TypeScript",
+        "Tailwind CSS",
+        "Node.js",
+        "ExpressJS",
+        "PostgreSQL",
+        "Docker",
+        "CircleCI",
+        "Github",
+      ],
+      githubUrl: "https://github.com/thatkidplongy/barbook-order-management",
+      liveUrl: "https://barbook-order-management-production.up.railway.app/",
+      featured: true,
+    },
   ];
 
   const featuredProjects = projects.filter((project) => project.featured);
