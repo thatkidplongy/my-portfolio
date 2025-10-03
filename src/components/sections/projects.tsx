@@ -140,7 +140,7 @@ const Projects = () => {
       title: "BarBooks Management System",
       description:
         "A full-featured e-commerce website for sneakers, watches, and headsets. Includes product catalog, shopping cart, user authentication, and payment processing.",
-      image: "",
+      image: "/bar-books.png",
       techStack: [
         "React - Vite",
         "TypeScript",
