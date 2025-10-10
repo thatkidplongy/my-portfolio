@@ -160,9 +160,28 @@ const Projects = () => {
       liveUrl: "https://ubxtraining.com",
       featured: true,
     },
-
     {
       id: "6",
+      title: "Kanban Board",
+      description: "A kanban board for managing tasks and projects",
+      image: "",
+      techStack: [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Shadcn UI",
+        "Node.js",
+        "ExpressJS",
+        "PostgreSQL",
+        "Railway",
+      ],
+      githubUrl: "",
+      liveUrl: "https://kanban-board-frontend-production.up.railway.app",
+      featured: true,
+    },
+
+    {
+      id: "7",
       title: "Socially - Social Media Platform",
       description:
         "A social media website inspired by Pinterest, featuring user authentication, content sharing, and social interactions. Built with modern web technologies for optimal user experience.",
@@ -179,7 +198,7 @@ const Projects = () => {
       featured: false,
     },
     {
-      id: "7",
+      id: "8",
       title: "Sneakpeek - E-commerce Platform",
       description:
         "A full-featured e-commerce website for sneakers, watches, and headsets. Includes product catalog, shopping cart, user authentication, and payment processing.",
