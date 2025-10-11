@@ -177,7 +177,7 @@ const Projects = () => {
       ],
       githubUrl: "",
       liveUrl: "https://kanban-board-frontend-production.up.railway.app",
-      featured: true,
+      featured: false,
     },
 
     {
