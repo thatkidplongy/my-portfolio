@@ -21,7 +21,7 @@ const robotoFlex = Roboto_Flex({
 });
 
 const DESCRIPTION =
-  "Electronics and Communications Engineer turned Software Engineer, with 4+ years building web applications across the full stack.";
+  "Electronics and Communications Engineer turned Software Engineer, with 5+ years shipping production web apps and AI powered features on AWS Bedrock.";
 
 export const metadata: Metadata = {
   title: "Florante G. Clavano Jr. | Full Stack Engineer",

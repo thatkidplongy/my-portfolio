@@ -4,24 +4,50 @@ import { getTechIcon } from "@/lib/tech-icons";
 
 const STACK: { title: string; skills: string[] }[] = [
   {
+    title: "AI & LLM",
+    skills: [
+      "AWS Bedrock",
+      "Claude",
+      "MCP",
+      "LLM Integration",
+      "Document Intelligence",
+      "PDF Parsing",
+    ],
+  },
+  {
     title: "Frontend",
     skills: [
       "React",
       "Next.js",
       "TypeScript",
       "Tailwind CSS",
+      "MUI",
+      "Zustand",
       "HTML",
       "CSS",
-      "Zustand",
     ],
   },
   {
     title: "Backend",
-    skills: ["Node.js", "Express.js", "GraphQL", "REST APIs", "Serverless"],
+    skills: [
+      "Node.js",
+      "GraphQL",
+      "Apollo",
+      "Express.js",
+      "Nest.js",
+      "Sequelize",
+      "Python",
+      "Serverless",
+      "REST APIs",
+    ],
   },
   {
     title: "Database & Cloud",
-    skills: ["PostgreSQL", "Redis", "AWS", "Docker"],
+    skills: ["PostgreSQL", "Redis", "AWS Lambda", "S3", "Docker", "Vercel"],
+  },
+  {
+    title: "Integrations",
+    skills: ["Stripe", "HubSpot", "Xero"],
   },
   {
     title: "Mobile",

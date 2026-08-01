@@ -34,14 +34,27 @@ import {
   SiVuedotjs,
   SiVuetify,
   SiQuasar,
+  SiClaude,
+  SiApollographql,
+  SiSequelize,
+  SiStripe,
+  SiHubspot,
+  SiMui,
+  SiNestjs,
+  SiPython,
+  SiVercel,
+  SiXero,
 } from "react-icons/si";
 import { FaAws, FaSlack } from "react-icons/fa";
 import { VscVscode } from "react-icons/vsc";
 import {
   Braces,
+  Brain,
   FlaskConical,
   Layers,
   MonitorSmartphone,
+  Plug,
+  ScanText,
   Webhook,
 } from "lucide-react";
 
@@ -86,8 +99,24 @@ const REGISTRY: Record<string, TechIcon> = {
   zustand: { Icon: Layers, color: NEUTRAL },
   responsivedesign: { Icon: MonitorSmartphone, color: NEUTRAL },
 
+  // AI and LLM. Bedrock is an AWS service so it carries the AWS mark; MCP and
+  // the capability entries have no brand of their own.
+  awsbedrock: AWS,
+  bedrock: AWS,
+  claude: { Icon: SiClaude, color: "#D97757" },
+  mcp: { Icon: Plug, color: NEUTRAL },
+  llmintegration: { Icon: Brain, color: NEUTRAL },
+  documentintelligence: { Icon: ScanText, color: NEUTRAL },
+  pdfparsing: { Icon: ScanText, color: NEUTRAL },
+
   // Backend
   nodejs: { Icon: SiNodedotjs, color: "#5FA04E" },
+  nestjs: { Icon: SiNestjs, color: "#E0234E" },
+  python: { Icon: SiPython, color: "#4B8BBE" },
+  apollo: { Icon: SiApollographql, color: "#7B5CF0" },
+  apolloclient: { Icon: SiApollographql, color: "#7B5CF0" },
+  apolloserver: { Icon: SiApollographql, color: "#7B5CF0" },
+  sequelize: { Icon: SiSequelize, color: "#52B0E7" },
   expressjs: { Icon: SiExpress, color: "#FFFFFF" },
   graphql: { Icon: SiGraphql, color: "#E10098" },
   serverless: { Icon: SiServerless, color: "#FD5750" },
@@ -105,6 +134,14 @@ const REGISTRY: Record<string, TechIcon> = {
   elasticache: AWS,
   docker: { Icon: SiDocker, color: "#2496ED" },
   railway: { Icon: SiRailway, color: "#FFFFFF" },
+  s3: AWS,
+  vercel: { Icon: SiVercel, color: "#FFFFFF" },
+
+  // Product integrations
+  stripe: { Icon: SiStripe, color: "#635BFF" },
+  hubspot: { Icon: SiHubspot, color: "#FF7A59" },
+  xero: { Icon: SiXero, color: "#13B5EA" },
+  mui: { Icon: SiMui, color: "#2E9BFF" },
 
   // Mobile
   flutter: { Icon: SiFlutter, color: "#47C5FB" },

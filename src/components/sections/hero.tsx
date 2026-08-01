@@ -6,7 +6,7 @@ import DownloadCVButton from "@/components/ui/DownloadCVButton";
 import ScrollToButton from "@/components/ui/ScrollToButton";
 
 const STATS = [
-  { value: "4+", label: "Years of Experience" },
+  { value: "5+", label: "Years of Experience" },
   { value: "8+", label: "Projects Shipped" },
   { value: "5", label: "Companies" },
 ];
@@ -76,8 +76,8 @@ const Hero = () => {
             <span className="text-signal">
               Electronics and Communications Engineer
             </span>{" "}
-            turned Software Engineer, with 4+ years building web applications
-            across the full stack.
+            turned Software Engineer, with 5+ years shipping production web
+            apps and AI powered features on AWS Bedrock.
           </p>
 
           <div

@@ -4,7 +4,7 @@ import DownloadCVButton from "@/components/ui/DownloadCVButton";
 
 const DETAILS = [
   { label: "Location", value: "Cebu City, Philippines" },
-  { label: "Experience", value: "4+ Years" },
+  { label: "Experience", value: "5+ Years" },
   { label: "Email", value: "fgclavano@gmail.com", href: "mailto:fgclavano@gmail.com" },
   { label: "Phone", value: "0966 453 2948", href: "tel:+639664532948" },
 ];
@@ -47,11 +47,19 @@ const About = () => (
               coding back in college.
             </p>
             <p className="slide-up-and-fade">
-              Four years on, I&apos;ve built web applications for ecommerce,
-              logistics, business valuation and property technology. I work
-              across the stack: React and Next.js on the front, Node and
+              Five years on, I&apos;ve shipped production web apps across
+              ecommerce, logistics, business valuation and property technology.
+              I work across the stack: React and Next.js on the front, Node and
               GraphQL services behind it, plus the database schemas, testing
               and AWS infrastructure that hold it together.
+            </p>
+            <p className="slide-up-and-fade">
+              Most recently that has meant{" "}
+              <span className="text-signal">AI powered features</span> on AWS
+              Bedrock: an LLM report platform with confidence scoring and
+              citation tracking, a document intelligence pipeline benchmarked
+              across 500+ historical reports, and a migration off OpenAI and
+              LangChain onto Bedrock and MCP.
             </p>
           </div>
 
