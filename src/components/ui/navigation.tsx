@@ -1,116 +1,108 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { scrollToSection, setScrollLocked } from "@/lib/smooth-scroll";
 
+const NAV_ITEMS = [
+  { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
+  { name: "Stack", href: "#skills" },
+  { name: "Experience", href: "#experience" },
+  { name: "Contact", href: "#contact" },
+];
+
+const EMAIL = "fgclavano@gmail.com";
+
+/**
+ * Fullscreen menu. Driven by CSS transitions off React state rather than a
+ * GSAP timeline, so it cannot be left half-applied by an effect re-running.
+ */
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    setScrollLocked(open);
+    return () => setScrollLocked(false);
+  }, [open]);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const navItems = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Experience", href: "#experience" },
-    { name: "Contact", href: "#contact" },
-  ];
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
-    }
+  const go = (href: string) => {
+    setOpen(false);
+    // Let the overlay start clearing before the scroll begins.
+    setTimeout(() => scrollToSection(href), 300);
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold text-gray-900 dark:text-white cursor-pointer"
-            onClick={() => scrollToSection("#about")}
-          >
-            Portfolio
-          </motion.div>
+    <>
+      <a
+        href={`mailto:${EMAIL}`}
+        className="fixed bottom-0 left-0 z-40 hidden h-screen w-12 items-center justify-center text-xs tracking-[0.2em] text-muted transition-colors duration-300 hover:text-signal lg:flex"
+        style={{ writingMode: "vertical-rl" }}
+      >
+        {EMAIL}
+      </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <motion.button
-                key={item.name}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
-                onClick={() => scrollToSection(item.href)}
-              >
-                {item.name}
-              </motion.button>
-            ))}
-          </div>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-label={open ? "Close menu" : "Open menu"}
+        aria-expanded={open}
+        className="fixed right-6 top-6 z-[60] flex h-12 w-12 flex-col items-center justify-center gap-[7px] lg:right-12"
+      >
+        <span
+          className={`block h-[2px] w-8 bg-accent transition-transform duration-300 ${
+            open ? "translate-y-[4.5px] rotate-45" : ""
+          }`}
+        />
+        <span
+          className={`block h-[2px] w-8 bg-accent transition-transform duration-300 ${
+            open ? "-translate-y-[4.5px] -rotate-45" : ""
+          }`}
+        />
+      </button>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
-              aria-label="Toggle mobile menu"
-            >
-              {isOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Navigation */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700"
-          >
-            <div className="px-4 py-6 space-y-4">
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.name}
-                  whileHover={{ x: 10 }}
-                  className="block w-full text-left text-lg text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
-                  onClick={() => scrollToSection(item.href)}
+      <div
+        aria-hidden={!open}
+        className={`fixed inset-0 z-50 flex items-center bg-canvas transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+          open ? "translate-y-0" : "pointer-events-none -translate-y-full"
+        }`}
+      >
+        <nav className="container-x">
+          <ul className="space-y-2">
+            {NAV_ITEMS.map((item, i) => (
+              <li key={item.name} className="overflow-hidden">
+                <button
+                  tabIndex={open ? 0 : -1}
+                  onClick={() => go(item.href)}
+                  className="display flex items-baseline gap-6 text-[13vw] text-muted transition-colors duration-300 hover:text-signal lg:text-[7rem]"
                 >
-                  {item.name}
-                </motion.button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+                  <span
+                    className={`block font-sans text-base tracking-widest text-signal transition-transform duration-500 ease-out ${
+                      open ? "translate-y-0" : "translate-y-[110%]"
+                    }`}
+                    style={{ transitionDelay: open ? `${180 + i * 60}ms` : "0ms" }}
+                  >
+                    _0{i + 1}
+                  </span>
+                  <span
+                    className={`block transition-transform duration-500 ease-out ${
+                      open ? "translate-y-0" : "translate-y-[110%]"
+                    }`}
+                    style={{ transitionDelay: open ? `${180 + i * 60}ms` : "0ms" }}
+                  >
+                    {item.name}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </>
   );
 };
 

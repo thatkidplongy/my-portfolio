@@ -1,40 +1,158 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------
+   Design tokens
+   Monochrome: near-black canvas, white as the accent.
+   --------------------------------------------------------------- */
+@theme {
+  --color-canvas: #212121;
+  --color-elevated: #272727;
+  /* White carries emphasis — headings, display type, solid buttons. */
+  --color-accent: #ffffff;
+  /* Cyan is punctuation only — enumeration, status, hover and focus. */
+  --color-signal: #00e5ff;
+  --color-body: #dedede;
+  --color-muted: #8f8f8f;
+  --color-faint: #5a5a5a;
+  --color-line: rgba(255, 255, 255, 0.12);
+
+  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-roboto-flex), system-ui, sans-serif;
+}
+
 @layer base {
   html {
-    scroll-behavior: smooth;
+    background-color: var(--color-canvas);
+    /* Lenis drives scrolling; native smooth would fight it. */
+    scroll-behavior: auto;
   }
 
   body {
-    @apply transition-colors duration-200;
+    background-color: var(--color-canvas);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-signal);
+    color: var(--color-canvas);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+  }
+
+  /* The native scrollbar is replaced by <ScrollProgress />. Scrolling itself
+     is untouched; only the default indicator is hidden. */
+  html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
   }
 }
 
 @layer components {
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
+  .container-x {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    .container-x {
+      padding-inline: 4rem;
+    }
   }
 
-  ::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-gray-800;
+  .py-section {
+    padding-block: clamp(5rem, 12vh, 9rem);
+  }
+  .pb-section {
+    padding-bottom: clamp(5rem, 12vh, 9rem);
   }
 
-  ::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+  /* Display type: Anton is a single-weight condensed face.
+     It needs tight leading and a touch of tracking to sit right. */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--color-accent);
   }
 
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-400 dark:bg-gray-500;
+  .hairline {
+    border-top: 1px solid var(--color-line);
+  }
+
+  /* Hover fill: a coloured copy of the text sits over the base and is
+     revealed left-to-right by animating its clip. The overlay inherits the
+     parent's box via inset:0, so it wraps identically at every width. */
+  .fill-word {
+    position: relative;
+    display: inline-block;
+  }
+
+  .fill-word > [data-fill] {
+    position: absolute;
+    inset: 0;
+    color: var(--color-signal);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Triggered either by hovering an enclosing link (project rows) or the
+     word itself (standalone headings). */
+  a:hover .fill-word > [data-fill],
+  a:focus-visible .fill-word > [data-fill],
+  .fill-word:hover > [data-fill] {
+    clip-path: inset(0 0 0 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fill-word > [data-fill] {
+      transition: none;
+    }
   }
 }
 
-/* Focus styles for accessibility */
-*:focus {
-  @apply outline-none ring-2 ring-blue-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900;
+/* ---------------------------------------------------------------
+   Scroll-reveal primitives — GSAP ScrollTrigger animates these.
+   Initial state lives in CSS so there is no flash of unstyled
+   content; <noscript> below restores them when JS is unavailable.
+   --------------------------------------------------------------- */
+.slide-up-and-fade {
+  opacity: 0;
+  transform: translateY(150px);
 }
 
-/* Smooth transitions for theme switching */
-* {
-  @apply transition-colors duration-200;
+.slide-up {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.reveal-mask {
+  display: block;
+  overflow: hidden;
+}
+.reveal-mask > * {
+  display: block;
+  transform: translateY(110%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide-up-and-fade,
+  .slide-up,
+  .reveal-mask > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

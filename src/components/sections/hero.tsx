@@ -1,83 +1,118 @@
 "use client";
 
-import { useSpring, useMotionValue, useAnimationControls } from "framer-motion";
-import { useEffect } from "react";
-import BackgroundEffects from "./hero/BackgroundEffects";
-import CodeSnippets from "./hero/CodeSnippets";
-import TechIcons from "./hero/TechIcons";
-import HeroContent from "./hero/HeroContent";
-import CursorTrail from "./hero/CursorTrail";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import DownloadCVButton from "@/components/ui/DownloadCVButton";
+import ScrollToButton from "@/components/ui/ScrollToButton";
+
+const STATS = [
+  { value: "4+", label: "Years of Experience" },
+  { value: "8+", label: "Projects Shipped" },
+  { value: "5", label: "Companies" },
+];
 
 const Hero = () => {
-  const controls = useAnimationControls();
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const root = useRef<HTMLElement>(null);
 
-  const springConfig = { damping: 25, stiffness: 700 };
-  const springX = useSpring(mouseX, springConfig);
-  const springY = useSpring(mouseY, springConfig);
-
+  // The hero is above the fold, so it animates off the intro finishing rather
+  // than off a scroll trigger.
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ paused: true });
 
-      const x = (clientX - innerWidth / 2) / innerWidth;
-      const y = (clientY - innerHeight / 2) / innerHeight;
+      tl.to("[data-hero-line]", {
+        y: "0%",
+        duration: 1,
+        ease: "power4.out",
+        stagger: 0.1,
+      })
+        .to(
+          "[data-hero-fade]",
+          { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", stagger: 0.08 },
+          "-=0.6"
+        )
+        .to(
+          "[data-hero-stat]",
+          { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", stagger: 0.1 },
+          "-=0.7"
+        );
 
-      mouseX.set(x * 50);
-      mouseY.set(y * 50);
-    };
+      const play = () => tl.play();
 
-    if (typeof window !== "undefined") {
-      window.addEventListener("mousemove", handleMouseMove);
-      return () => window.removeEventListener("mousemove", handleMouseMove);
-    }
-  }, [mouseX, mouseY]);
+      if (document.documentElement.dataset.introDone === "true") play();
+      else window.addEventListener("intro:done", play, { once: true });
 
-  // Initial animation for the name
-  useEffect(() => {
-    controls.start({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, delay: 0.4 },
-    });
-  }, [controls]);
+      return () => window.removeEventListener("intro:done", play);
+    }, root);
 
-  const scrollToAbout = () => {
-    if (typeof document !== "undefined") {
-      const element = document.querySelector("#about");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  };
-
-  const handleNameHover = () => {
-    controls.start({
-      opacity: 1,
-      y: 0,
-      scale: [1, 1.1, 1],
-      rotate: [0, 5, -5, 0],
-      transition: { duration: 0.6, ease: "easeInOut" },
-    });
-  };
-
-  const handleNameLeave = () => {
-    controls.start({ scale: 1, rotate: 0 });
-  };
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden">
-      <BackgroundEffects springX={springX} springY={springY} />
-      <CodeSnippets />
-      <TechIcons />
-      <CursorTrail springX={springX} springY={springY} />
-      <HeroContent
-        handleNameHover={handleNameHover}
-        handleNameLeave={handleNameLeave}
-        scrollToAbout={scrollToAbout}
-      />
+    <section
+      ref={root}
+      id="home"
+      className="relative flex min-h-screen items-center overflow-hidden py-32"
+    >
+      <div className="container-x grid w-full items-end gap-16 lg:grid-cols-[minmax(0,1fr)_auto]">
+        <div>
+          <h1 className="display text-[16vw] leading-[0.85] lg:text-[8.5rem]">
+            <span className="block overflow-hidden">
+              <span data-hero-line className="block translate-y-full text-signal">
+                Full Stack
+              </span>
+            </span>
+            <span className="block overflow-hidden">
+              <span data-hero-line className="block translate-y-full text-muted">
+                Engineer
+              </span>
+            </span>
+          </h1>
+
+          <p
+            data-hero-fade
+            className="mt-10 max-w-2xl translate-y-6 text-lg leading-relaxed text-muted opacity-0"
+          >
+            <span className="text-signal">
+              Electronics and Communications Engineer
+            </span>{" "}
+            turned Software Engineer, with 4+ years building web applications
+            across the full stack.
+          </p>
+
+          <div
+            data-hero-fade
+            className="mt-12 flex translate-y-6 flex-wrap items-center gap-4 opacity-0"
+          >
+            <ScrollToButton target="#contact">Let&apos;s Talk</ScrollToButton>
+            <DownloadCVButton />
+          </div>
+
+          <p
+            data-hero-fade
+            className="mt-8 flex translate-y-6 items-center gap-3 text-sm text-muted opacity-0"
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-60" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-signal" />
+            </span>
+            Open to new opportunities
+          </p>
+        </div>
+
+        <dl className="flex gap-10 lg:flex-col lg:gap-8 lg:text-right">
+          {STATS.map((stat) => (
+            <div key={stat.label} data-hero-stat className="translate-y-6 opacity-0">
+              <dt className="display text-4xl text-signal lg:text-5xl">
+                {stat.value}
+              </dt>
+              <dd className="mt-1 text-xs uppercase tracking-[0.15em] text-muted">
+                {stat.label}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </section>
   );
 };
