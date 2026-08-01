@@ -16,6 +16,12 @@ interface Project {
   techStack: string[];
   githubUrl: string;
   liveUrl?: string;
+  /**
+   * Whether the live site can be shown in the hover preview. False when the
+   * host sends x-frame-options / CSP frame-ancestors, or when the URL is not
+   * currently serving. Those fall back to the screenshot.
+   */
+  embeddable?: boolean;
 }
 
 const PROJECTS: Project[] = [
@@ -88,6 +94,7 @@ const PROJECTS: Project[] = [
     ],
     githubUrl: "",
     liveUrl: "https://app.exitonyourterms.com/business-value-estimate-calculator",
+    embeddable: true,
   },
   {
     id: "5",
@@ -103,6 +110,7 @@ const PROJECTS: Project[] = [
     ],
     githubUrl: "",
     liveUrl: "https://ubxtraining.com",
+    embeddable: true,
   },
   {
     id: "6",
@@ -134,6 +142,8 @@ const PROJECTS: Project[] = [
       "Content Management",
     ],
     githubUrl: "https://github.com/thatkidplongy/socially",
+    // Live site is behind a Google sign-in wall, so a frame would only ever
+    // show the login screen. The screenshot is an authenticated view.
     liveUrl: "https://socially-by-plongy.vercel.app/",
   },
   {
@@ -149,17 +159,37 @@ const PROJECTS: Project[] = [
     ],
     githubUrl: "https://github.com/thatkidplongy/sneapeek",
     liveUrl: "https://sneakpeek-plongy.vercel.app/",
+    embeddable: true,
   },
 ];
 
+/**
+ * The preview panel is 420px wide at xl. Rendering the iframe at a desktop
+ * width and scaling it down keeps the embedded site laid out as its own
+ * desktop breakpoint rather than squashing it into a phone layout.
+ */
+const FRAME_WIDTH = 1400;
+const FRAME_HEIGHT = 875;
+const FRAME_SCALE = 0.3;
+
 const Projects = () => {
   const [active, setActive] = useState(0);
+  /** Rows hovered at least once; their iframes stay mounted for instant re-hover. */
+  const [mounted, setMounted] = useState<Set<number>>(new Set());
+  const [loaded, setLoaded] = useState<Set<number>>(new Set());
   const preview = useRef<HTMLDivElement>(null);
   const list = useRef<HTMLDivElement>(null);
 
   /** Slide the floating preview to sit beside whichever row is hovered. */
   const handleEnter = (index: number, row: HTMLElement) => {
     setActive(index);
+
+    // Mount the live frame on first hover; it stays mounted so returning to
+    // the row is instant rather than reloading the site.
+    if (PROJECTS[index].embeddable) {
+      setMounted((prev) => (prev.has(index) ? prev : new Set(prev).add(index)));
+    }
+
     if (!preview.current || !list.current) return;
 
     const listBox = list.current.getBoundingClientRect();
@@ -190,7 +220,7 @@ const Projects = () => {
             aria-hidden="true"
             className="pointer-events-none absolute right-0 top-0 z-10 hidden w-[320px] overflow-hidden opacity-0 xl:block xl:w-[420px]"
           >
-            <div className="relative aspect-[16/10] w-full bg-elevated">
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-elevated">
               {PROJECTS.map((project, i) => (
                 <Image
                   key={project.id}
@@ -203,6 +233,34 @@ const Projects = () => {
                   }`}
                 />
               ))}
+
+              {/* Live site, layered over its screenshot. Mounted only once a
+                  row has been hovered, and revealed only after it loads, so
+                  there is never a blank panel. */}
+              {PROJECTS.map((project, i) =>
+                project.embeddable && mounted.has(i) ? (
+                  <iframe
+                    key={`frame-${project.id}`}
+                    src={project.liveUrl}
+                    title=""
+                    tabIndex={-1}
+                    loading="lazy"
+                    sandbox="allow-scripts allow-same-origin"
+                    referrerPolicy="no-referrer"
+                    onLoad={() =>
+                      setLoaded((prev) => new Set(prev).add(i))
+                    }
+                    className={`absolute left-0 top-0 origin-top-left border-0 transition-opacity duration-700 ${
+                      i === active && loaded.has(i) ? "opacity-100" : "opacity-0"
+                    }`}
+                    style={{
+                      width: FRAME_WIDTH,
+                      height: FRAME_HEIGHT,
+                      transform: `scale(${FRAME_SCALE})`,
+                    }}
+                  />
+                ) : null
+              )}
             </div>
           </div>
 
