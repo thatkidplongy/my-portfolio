@@ -3,7 +3,7 @@ import SectionLabel from "@/components/ui/SectionLabel";
 import DownloadCVButton from "@/components/ui/DownloadCVButton";
 
 const DETAILS = [
-  { label: "Location", value: "Salay, Misamis Oriental, Philippines" },
+  { label: "Location", value: "Cebu City, Philippines" },
   { label: "Experience", value: "4+ Years" },
   { label: "Email", value: "fgclavano@gmail.com", href: "mailto:fgclavano@gmail.com" },
   { label: "Phone", value: "0966 453 2948", href: "tel:+639664532948" },

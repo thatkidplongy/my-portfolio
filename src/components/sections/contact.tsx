@@ -23,7 +23,7 @@ const CONTACT_INFO = [
   { label: "Phone", value: "0966 453 2948", link: "tel:+639664532948" },
   {
     label: "Location",
-    value: "Salay, Misamis Oriental, Philippines",
+    value: "Cebu City, Philippines",
     link: undefined,
   },
 ];
