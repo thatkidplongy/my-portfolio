@@ -22,11 +22,19 @@ interface Project {
    * currently serving. Those fall back to the screenshot.
    */
   embeddable?: boolean;
+  /** Client work shipped to production, versus things built for myself. */
+  category: "production" | "personal";
 }
+
+const GROUPS: { key: Project["category"]; label: string }[] = [
+  { key: "production", label: "Client & Production Work" },
+  { key: "personal", label: "Personal Projects" },
+];
 
 const PROJECTS: Project[] = [
   {
     id: "1",
+    category: "production",
     title: "Before You Buy",
     summary: "A single place for all your property reports",
     image: "/beforeyoubuy.png",
@@ -45,6 +53,7 @@ const PROJECTS: Project[] = [
   },
   {
     id: "2",
+    category: "production",
     title: "Backyard",
     summary: "Admin dashboard for Before You Buy",
     image: "/backyard.png",
@@ -59,10 +68,10 @@ const PROJECTS: Project[] = [
       "CircleCI",
     ],
     githubUrl: "",
-    liveUrl: "https://barbook-order-management-production.up.railway.app/",
   },
   {
     id: "3",
+    category: "personal",
     title: "BarBooks",
     summary: "Order management system",
     image: "/bar-books.png",
@@ -77,10 +86,10 @@ const PROJECTS: Project[] = [
       "CircleCI",
     ],
     githubUrl: "https://github.com/thatkidplongy/barbook-order-management",
-    liveUrl: "https://barbook-order-management-production.up.railway.app/",
   },
   {
     id: "4",
+    category: "production",
     title: "Exit on Your Terms",
     summary:
       "Business value estimate, discretionary earnings and value gap calculators",
@@ -98,6 +107,7 @@ const PROJECTS: Project[] = [
   },
   {
     id: "5",
+    category: "production",
     title: "UBX Training",
     summary: "Training, franchise and camp websites with print templates",
     image: "/ubx-training.png",
@@ -114,6 +124,7 @@ const PROJECTS: Project[] = [
   },
   {
     id: "6",
+    category: "personal",
     title: "Kanban Board",
     summary: "Task and project management",
     image: "/kanban.png",
@@ -127,11 +138,11 @@ const PROJECTS: Project[] = [
       "PostgreSQL",
       "Railway",
     ],
-    githubUrl: "",
-    liveUrl: "https://kanban-board-frontend-production.up.railway.app",
+    githubUrl: "https://github.com/thatkidplongy/kanban-board-frontend",
   },
   {
     id: "7",
+    category: "personal",
     title: "Socially",
     summary: "Social platform inspired by Pinterest",
     image: "/socially.png",
@@ -148,6 +159,7 @@ const PROJECTS: Project[] = [
   },
   {
     id: "8",
+    category: "personal",
     title: "Sneakpeek",
     summary: "Ecommerce for sneakers, watches and headsets",
     image: "/sneak-peek.png",
@@ -157,7 +169,7 @@ const PROJECTS: Project[] = [
       "Shopping Cart",
       "Payment Processing",
     ],
-    githubUrl: "https://github.com/thatkidplongy/sneapeek",
+    githubUrl: "https://github.com/thatkidplongy/sneakpeek",
     liveUrl: "https://sneakpeek-plongy.vercel.app/",
     embeddable: true,
   },
@@ -264,67 +276,92 @@ const Projects = () => {
             </div>
           </div>
 
-          <ul className="border-t border-line">
-            {PROJECTS.map((project, index) => {
-              const href = project.liveUrl || project.githubUrl || undefined;
+          {GROUPS.map((group) => {
+            const items = PROJECTS.map((project, index) => ({
+              project,
+              index,
+            })).filter(({ project }) => project.category === group.key);
 
-              return (
-                <li key={project.id} className="slide-up border-b border-line">
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onMouseEnter={(e) => handleEnter(index, e.currentTarget)}
-                    onFocus={(e) => handleEnter(index, e.currentTarget)}
-                    className="group/row block py-8"
-                  >
-                    <div className="flex items-baseline gap-5">
-                      <span className="text-sm tracking-widest text-signal">
-                        _{String(index + 1).padStart(2, "0")}.
-                      </span>
-                      <h3 className="display text-4xl text-muted md:text-6xl">
-                        <FillText>{project.title}</FillText>
-                      </h3>
-                      <ArrowUpRight
-                        className="h-6 w-6 shrink-0 -translate-x-2 text-signal opacity-0 transition-all duration-300 group-hover/row:translate-x-0 group-hover/row:opacity-100"
-                        aria-hidden="true"
-                      />
-                    </div>
+            if (!items.length) return null;
 
-                    <p className="mt-3 max-w-xl text-body md:pl-[3.4rem]">
-                      {project.summary}
-                    </p>
+            return (
+              <div key={group.key} className="mb-16 last:mb-0">
+                <h3 className="slide-up-and-fade mb-6 text-xs uppercase tracking-[0.2em] text-faint">
+                  {group.label}
+                </h3>
 
-                    <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-faint md:pl-[3.4rem]">
-                      {project.techStack.map((tech, i) => (
-                        <span key={tech} className="flex items-center gap-3">
-                          {i > 0 && (
-                            <span
-                              aria-hidden="true"
-                              className="inline-block h-1 w-1 rounded-full bg-faint"
-                            />
-                          )}
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </a>
+                <ul className="border-t border-line">
+                  {items.map(({ project, index }, position) => {
+                    const href =
+                      project.liveUrl || project.githubUrl || undefined;
 
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mb-8 inline-flex items-center gap-2 text-sm text-faint transition-colors duration-300 hover:text-signal md:ml-[3.4rem]"
-                    >
-                      <Github className="h-4 w-4" aria-hidden="true" />
-                      Source
-                    </a>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+                    return (
+                      <li
+                        key={project.id}
+                        className="slide-up border-b border-line"
+                      >
+                        {/* Rows with no working destination render as plain
+                            text rather than a dead link. */}
+                        <a
+                          href={href}
+                          target={href ? "_blank" : undefined}
+                          rel={href ? "noopener noreferrer" : undefined}
+                          onMouseEnter={(e) => handleEnter(index, e.currentTarget)}
+                          onFocus={(e) => handleEnter(index, e.currentTarget)}
+                          className="group/row block py-8"
+                        >
+                          <div className="flex items-baseline gap-5">
+                            <span className="text-sm tracking-widest text-signal">
+                              _{String(position + 1).padStart(2, "0")}.
+                            </span>
+                            <h3 className="display text-4xl text-muted md:text-6xl">
+                              <FillText>{project.title}</FillText>
+                            </h3>
+                            {href && (
+                              <ArrowUpRight
+                                className="h-6 w-6 shrink-0 -translate-x-2 text-signal opacity-0 transition-all duration-300 group-hover/row:translate-x-0 group-hover/row:opacity-100"
+                                aria-hidden="true"
+                              />
+                            )}
+                          </div>
+
+                          <p className="mt-3 max-w-xl text-body md:pl-[3.4rem]">
+                            {project.summary}
+                          </p>
+
+                          <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-faint md:pl-[3.4rem]">
+                            {project.techStack.map((tech, i) => (
+                              <span key={tech} className="flex items-center gap-3">
+                                {i > 0 && (
+                                  <span
+                                    aria-hidden="true"
+                                    className="inline-block h-1 w-1 rounded-full bg-faint"
+                                  />
+                                )}
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </a>
+
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mb-8 inline-flex items-center gap-2 text-sm text-faint transition-colors duration-300 hover:text-signal md:ml-[3.4rem]"
+                          >
+                            <Github className="h-4 w-4" aria-hidden="true" />
+                            Source
+                          </a>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
