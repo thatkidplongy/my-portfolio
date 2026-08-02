@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ArrowUpRight, Github } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import FillText from "@/components/ui/FillText";
+import { getTechIcon } from "@/lib/tech-icons";
 
 interface Project {
   id: string;
@@ -331,18 +332,21 @@ const Projects = () => {
                             {project.summary}
                           </p>
 
-                          <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-faint md:pl-[3.4rem]">
-                            {project.techStack.map((tech, i) => (
-                              <span key={tech} className="flex items-center gap-3">
-                                {i > 0 && (
-                                  <span
+                          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-faint md:pl-[3.4rem]">
+                            {project.techStack.map((tech) => {
+                              const { Icon, color } = getTechIcon(tech);
+
+                              return (
+                                <span key={tech} className="flex items-center gap-1.5">
+                                  <Icon
+                                    className="h-4 w-4 shrink-0"
+                                    style={{ color }}
                                     aria-hidden="true"
-                                    className="inline-block h-1 w-1 rounded-full bg-faint"
                                   />
-                                )}
-                                {tech}
-                              </span>
-                            ))}
+                                  {tech}
+                                </span>
+                              );
+                            })}
                           </div>
                         </a>
 
