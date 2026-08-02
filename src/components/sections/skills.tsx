@@ -23,6 +23,7 @@ const STACK: { title: string; skills: string[] }[] = [
       "Tailwind CSS",
       "MUI",
       "Zustand",
+      "TanStack Query",
       "HTML",
       "CSS",
     ],
@@ -37,6 +38,7 @@ const STACK: { title: string; skills: string[] }[] = [
       "Nest.js",
       "Sequelize",
       "Python",
+      "FastAPI",
       "Serverless",
       "REST APIs",
     ],
@@ -51,7 +53,7 @@ const STACK: { title: string; skills: string[] }[] = [
   },
   {
     title: "Mobile",
-    skills: ["React Native", "Flutter"],
+    skills: ["React Native", "Expo", "Flutter"],
   },
   {
     title: "Tools & Testing",

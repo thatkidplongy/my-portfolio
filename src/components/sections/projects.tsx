@@ -70,6 +70,24 @@ const PROJECTS: Project[] = [
     githubUrl: "",
   },
   {
+    id: "9",
+    category: "personal",
+    title: "Arise",
+    summary:
+      "A life RPG mobile app with daily quests, XP, ranks and streaks, inspired by Solo Leveling",
+    image: "/arise.png",
+    techStack: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "TanStack Query",
+      "Zustand",
+      "FastAPI",
+      "SQLite",
+    ],
+    githubUrl: "https://github.com/thatkidplongy/arise",
+  },
+  {
     id: "3",
     category: "personal",
     title: "BarBooks",
@@ -156,22 +174,6 @@ const PROJECTS: Project[] = [
     // Live site is behind a Google sign-in wall, so a frame would only ever
     // show the login screen. The screenshot is an authenticated view.
     liveUrl: "https://socially-by-plongy.vercel.app/",
-  },
-  {
-    id: "8",
-    category: "personal",
-    title: "Sneakpeek",
-    summary: "Ecommerce for sneakers, watches and headsets",
-    image: "/sneak-peek.png",
-    techStack: [
-      "Ecommerce",
-      "Product Management",
-      "Shopping Cart",
-      "Payment Processing",
-    ],
-    githubUrl: "https://github.com/thatkidplongy/sneakpeek",
-    liveUrl: "https://sneakpeek-plongy.vercel.app/",
-    embeddable: true,
   },
 ];
 

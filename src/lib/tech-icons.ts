@@ -35,6 +35,10 @@ import {
   SiVuetify,
   SiQuasar,
   SiClaude,
+  SiExpo,
+  SiFastapi,
+  SiReactquery,
+  SiSqlite,
   SiApollographql,
   SiSequelize,
   SiStripe,
@@ -97,6 +101,8 @@ const REGISTRY: Record<string, TechIcon> = {
   styledcomponents: { Icon: SiStyledcomponents, color: "#DB7093" },
   shadcnui: { Icon: SiShadcnui, color: "#FFFFFF" },
   zustand: { Icon: Layers, color: NEUTRAL },
+  tanstackquery: { Icon: SiReactquery, color: "#FF4154" },
+  reactquery: { Icon: SiReactquery, color: "#FF4154" },
   responsivedesign: { Icon: MonitorSmartphone, color: NEUTRAL },
 
   // AI and LLM. Bedrock is an AWS service so it carries the AWS mark; MCP and
@@ -113,6 +119,7 @@ const REGISTRY: Record<string, TechIcon> = {
   nodejs: { Icon: SiNodedotjs, color: "#5FA04E" },
   nestjs: { Icon: SiNestjs, color: "#E0234E" },
   python: { Icon: SiPython, color: "#4B8BBE" },
+  fastapi: { Icon: SiFastapi, color: "#009688" },
   apollo: { Icon: SiApollographql, color: "#7B5CF0" },
   apolloclient: { Icon: SiApollographql, color: "#7B5CF0" },
   apolloserver: { Icon: SiApollographql, color: "#7B5CF0" },
@@ -127,6 +134,7 @@ const REGISTRY: Record<string, TechIcon> = {
   // Data and cloud
   postgresql: POSTGRES,
   postgresdb: POSTGRES,
+  sqlite: { Icon: SiSqlite, color: "#4DB6F0" },
   redis: { Icon: SiRedis, color: "#FF4438" },
   aws: AWS,
   awslambda: AWS,
@@ -144,6 +152,7 @@ const REGISTRY: Record<string, TechIcon> = {
   mui: { Icon: SiMui, color: "#2E9BFF" },
 
   // Mobile
+  expo: { Icon: SiExpo, color: "#FFFFFF" },
   flutter: { Icon: SiFlutter, color: "#47C5FB" },
 
   // Tooling and testing
