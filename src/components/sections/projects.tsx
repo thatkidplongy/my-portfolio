@@ -71,6 +71,26 @@ const PROJECTS: Project[] = [
     githubUrl: "",
   },
   {
+    id: "10",
+    category: "personal",
+    title: "DocSight",
+    summary:
+      "Grounded document Q&A over SEC filings: every answer carries a citation verified against the source, with a published benchmark of local models",
+    image: "/docsight.png",
+    techStack: [
+      "React (Vite)",
+      "TypeScript",
+      "Tailwind CSS",
+      "pdf.js",
+      "transformers.js",
+      "Ollama",
+      "Vitest",
+    ],
+    githubUrl: "https://github.com/thatkidplongy/docsight",
+    liveUrl: "https://docsight-ten.vercel.app/",
+    embeddable: true,
+  },
+  {
     id: "9",
     category: "personal",
     title: "Arise",
