@@ -48,17 +48,22 @@ import {
   SiPython,
   SiVercel,
   SiXero,
+  SiOllama,
+  SiHuggingface,
 } from "react-icons/si";
 import { FaAws, FaSlack } from "react-icons/fa";
 import { VscVscode } from "react-icons/vsc";
 import {
   Braces,
   Brain,
+  FileText,
   FlaskConical,
+  Gauge,
   Layers,
   MonitorSmartphone,
   Plug,
   ScanText,
+  SearchCheck,
   Webhook,
 } from "lucide-react";
 
@@ -113,6 +118,13 @@ const REGISTRY: Record<string, TechIcon> = {
   mcp: { Icon: Plug, color: NEUTRAL },
   llmintegration: { Icon: Brain, color: NEUTRAL },
   documentintelligence: { Icon: ScanText, color: NEUTRAL },
+  rag: { Icon: SearchCheck, color: NEUTRAL },
+  hybridretrieval: { Icon: SearchCheck, color: NEUTRAL },
+  llmevals: { Icon: Gauge, color: NEUTRAL },
+  embeddings: { Icon: Brain, color: NEUTRAL },
+  ollama: { Icon: SiOllama, color: "#ffffff" },
+  transformersjs: { Icon: SiHuggingface, color: "#FFD21E" },
+  pdfjs: { Icon: FileText, color: NEUTRAL },
   pdfparsing: { Icon: ScanText, color: NEUTRAL },
 
   // Backend
