@@ -5,28 +5,11 @@
  * beat.
  */
 
-/**
- * Where the screenshot sits while a beat is on stage. x and y are
- * object-position percentages, scale magnifies; together they let one
- * screenshot push into the region a beat is talking about.
- */
-export interface ShowcaseFocus {
-  x: number;
-  y: number;
-  scale: number;
-}
-
 export interface ShowcaseBeat {
   index: string;
   title: string;
   body: string;
-  /** Optional dedicated screenshot; falls back to the showcase image. */
-  image?: string;
-  focus?: ShowcaseFocus;
 }
-
-/** Used when a beat names no focus of its own: the whole frame, unzoomed. */
-export const DEFAULT_FOCUS: ShowcaseFocus = { x: 50, y: 0, scale: 1 };
 
 export interface Showcase {
   id: string;
@@ -52,25 +35,21 @@ export const SHOWCASES: Showcase[] = [
         index: "01",
         title: "Ask anything of a filing",
         body: "Drop in an SEC filing and ask a question in plain English. Retrieval runs on device, so nothing leaves the browser.",
-        focus: { x: 50, y: 0, scale: 1 },
       },
       {
         index: "02",
         title: "Every claim carries a citation",
         body: "Answers arrive with their sources attached, and each citation is checked in code against the document it came from.",
-        focus: { x: 20, y: 30, scale: 1.5 },
       },
       {
         index: "03",
         title: "Confidence you can inspect",
         body: "Scores are computed from retrieval and verification signals, not guessed by the model describing its own work.",
-        focus: { x: 80, y: 45, scale: 1.6 },
       },
       {
         index: "04",
         title: "Benchmarked against invention",
         body: "A published benchmark catches models citing sentences they made up, so the guarantees are measured rather than claimed.",
-        focus: { x: 50, y: 80, scale: 1.3 },
       },
     ],
   },
@@ -85,19 +64,16 @@ export const SHOWCASES: Showcase[] = [
         index: "01",
         title: "Every property report in one place",
         body: "Buyers order building, pest and strata reports through a single funnel instead of chasing separate inspectors and inboxes.",
-        focus: { x: 50, y: 0, scale: 1 },
       },
       {
         index: "02",
         title: "Built across eight microservices",
         body: "Ordering, payments, documents and CRM each own their slice, tied together with schema first GraphQL and shipped on CircleCI.",
-        focus: { x: 30, y: 40, scale: 1.5 },
       },
       {
         index: "03",
         title: "Serving real buyers daily",
         body: "Live in production in Australia, with state specific compliance forms and bundling that opened new revenue streams.",
-        focus: { x: 70, y: 70, scale: 1.35 },
       },
     ],
   },
@@ -112,19 +88,16 @@ export const SHOWCASES: Showcase[] = [
         index: "01",
         title: "Your life as a quest log",
         body: "Daily habits become quests with XP, ranks and streaks, borrowing the progression loop that makes Solo Leveling addictive.",
-        focus: { x: 50, y: 0, scale: 1 },
       },
       {
         index: "02",
         title: "Native, offline first",
         body: "React Native and Expo on the front, FastAPI and SQLite behind it, so progress survives a lost connection.",
-        focus: { x: 50, y: 45, scale: 1.5 },
       },
       {
         index: "03",
         title: "Built to keep me honest",
         body: "A personal project that had to survive daily use by its own author, which is a harsher reviewer than any test suite.",
-        focus: { x: 50, y: 85, scale: 1.3 },
       },
     ],
   },
