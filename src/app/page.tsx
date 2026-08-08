@@ -1,6 +1,6 @@
 import Hero from "@/components/sections/hero";
 import About from "@/components/sections/about";
-import DocSightShowcase from "@/components/sections/docsight-showcase";
+import Showcases from "@/components/sections/showcases";
 import Skills from "@/components/sections/skills";
 import Projects from "@/components/sections/projects";
 import Experience from "@/components/sections/experience";
@@ -11,7 +11,7 @@ export default function Home() {
     <div className="min-h-screen">
       <Hero />
       <About />
-      <DocSightShowcase />
+      <Showcases />
       <Projects />
       <Skills />
       <Experience />
