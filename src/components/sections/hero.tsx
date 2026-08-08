@@ -1,9 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import gsap from "gsap";
 import DownloadCVButton from "@/components/ui/DownloadCVButton";
 import ScrollToButton from "@/components/ui/ScrollToButton";
+
+// Client-only: three.js has no SSR story, and the scene is a progressive
+// enhancement — the hero reads fine before (or without) it.
+const HeroScene = dynamic(() => import("@/components/hero/HeroScene"), {
+  ssr: false,
+});
 
 const STATS = [
   { value: "5+", label: "Years of Experience" },
@@ -13,6 +20,20 @@ const STATS = [
 
 const Hero = () => {
   const root = useRef<HTMLElement>(null);
+
+  // Mount the 3D scene only on large viewports so phones never download the
+  // three.js bundle; the dynamic import fires on first render of <HeroScene />.
+  // Subscribed rather than read once so crossing the breakpoint (window drag,
+  // rotation) mounts or unmounts the scene correctly.
+  const [showScene, setShowScene] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setShowScene(mq.matches);
+
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   // The hero is above the fold, so it animates off the intro finishing rather
   // than off a scroll trigger.
@@ -54,6 +75,15 @@ const Hero = () => {
       id="home"
       className="relative flex min-h-screen items-center overflow-hidden py-32"
     >
+      {/* Sits over the empty upper-right region of the hero grid; z-10 so the
+          canvas receives hover/click, which is safe because nothing
+          interactive renders underneath it at lg and up. */}
+      {showScene && (
+        <div className="absolute right-[2%] top-[8%] z-10 hidden h-[56%] w-[42%] lg:block">
+          <HeroScene />
+        </div>
+      )}
+
       <div className="container-x grid w-full items-end gap-16 lg:grid-cols-[minmax(0,1fr)_auto]">
         <div>
           <h1 className="display text-[16vw] leading-[0.85] lg:text-[8.5rem]">
