@@ -1,8 +1,9 @@
 /**
- * The projects that get the pinned scroll story, in page order. Everything
- * else stays in the project list: the treatment only reads as special while
- * it is reserved for a few, and each entry costs a viewport of scroll per
- * beat.
+ * The projects that get the pinned scroll story, in page order: two client
+ * projects first so a visitor meets the production work before the personal
+ * work. Everything else lives on the projects route, since the treatment
+ * only reads as special while it is rare and each beat costs a viewport of
+ * scroll.
  */
 
 export interface ShowcaseBeat {
@@ -22,6 +23,55 @@ export interface Showcase {
 }
 
 export const SHOWCASES: Showcase[] = [
+  {
+    id: "beforeyoubuy",
+    name: "Before You Buy",
+    image: "/beforeyoubuy.png",
+    imageAlt: "The Before You Buy property report platform",
+    liveUrl: "https://www.beforeyoubuy.com.au/",
+    beats: [
+      {
+        index: "01",
+        title: "Every property report in one place",
+        body: "Buyers order building, pest and strata reports through a single funnel instead of chasing separate inspectors and inboxes.",
+      },
+      {
+        index: "02",
+        title: "Built across eight microservices",
+        body: "Ordering, payments, documents and CRM each own their slice, tied together with schema first GraphQL and shipped on CircleCI.",
+      },
+      {
+        index: "03",
+        title: "Serving real buyers daily",
+        body: "Live in production in Australia, with state specific compliance forms and bundling that opened new revenue streams.",
+      },
+    ],
+  },
+  {
+    id: "exit-on-your-terms",
+    name: "Exit on Your Terms",
+    image: "/eoyt.png",
+    imageAlt: "The Exit on Your Terms business value estimate calculator",
+    liveUrl:
+      "https://app.exitonyourterms.com/business-value-estimate-calculator",
+    beats: [
+      {
+        index: "01",
+        title: "What is the business actually worth",
+        body: "Owners planning an exit get a value estimate from their own numbers, without booking a valuation first.",
+      },
+      {
+        index: "02",
+        title: "Three calculators, one model",
+        body: "Value estimate, discretionary earnings and value gap share the same engine, so the figures agree with each other.",
+      },
+      {
+        index: "03",
+        title: "Built to be embedded",
+        body: "Next.js and Tailwind, responsive down to a phone, so the tools sit inside the client's funnel rather than beside it.",
+      },
+    ],
+  },
   {
     id: "docsight",
     name: "DocSight",
@@ -50,30 +100,6 @@ export const SHOWCASES: Showcase[] = [
         index: "04",
         title: "Benchmarked against invention",
         body: "A published benchmark catches models citing sentences they made up, so the guarantees are measured rather than claimed.",
-      },
-    ],
-  },
-  {
-    id: "beforeyoubuy",
-    name: "Before You Buy",
-    image: "/beforeyoubuy.png",
-    imageAlt: "The Before You Buy property report platform",
-    liveUrl: "https://www.beforeyoubuy.com.au/",
-    beats: [
-      {
-        index: "01",
-        title: "Every property report in one place",
-        body: "Buyers order building, pest and strata reports through a single funnel instead of chasing separate inspectors and inboxes.",
-      },
-      {
-        index: "02",
-        title: "Built across eight microservices",
-        body: "Ordering, payments, documents and CRM each own their slice, tied together with schema first GraphQL and shipped on CircleCI.",
-      },
-      {
-        index: "03",
-        title: "Serving real buyers daily",
-        body: "Live in production in Australia, with state specific compliance forms and bundling that opened new revenue streams.",
       },
     ],
   },
