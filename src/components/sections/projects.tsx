@@ -203,23 +203,6 @@ const PROJECTS: Project[] = [
     ],
     githubUrl: "https://github.com/thatkidplongy/kanban-board-frontend",
   },
-  {
-    id: "7",
-    category: "personal",
-    title: "Socially",
-    summary: "Social platform inspired by Pinterest",
-    image: "/socially.png",
-    techStack: [
-      "React",
-      "TypeScript",
-      "User Authentication",
-      "Content Management",
-    ],
-    githubUrl: "https://github.com/thatkidplongy/socially",
-    // Live site is behind a Google sign-in wall, so a frame would only ever
-    // show the login screen. The screenshot is an authenticated view.
-    liveUrl: "https://socially-by-plongy.vercel.app/",
-  },
 ];
 
 /**
