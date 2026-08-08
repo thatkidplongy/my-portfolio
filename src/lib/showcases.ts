@@ -38,12 +38,7 @@ export const SHOWCASES: Showcase[] = [
       {
         index: "02",
         title: "Built across eight microservices",
-        body: "Ordering, payments, documents and CRM each own their slice, tied together with schema first GraphQL and shipped on CircleCI.",
-      },
-      {
-        index: "03",
-        title: "Serving real buyers daily",
-        body: "Live in production in Australia, with state specific compliance forms and bundling that opened new revenue streams.",
+        body: "Ordering, payments, documents and CRM each own their slice, tied together with schema first GraphQL. Live in Australia and serving buyers daily.",
       },
     ],
   },
@@ -63,12 +58,7 @@ export const SHOWCASES: Showcase[] = [
       {
         index: "02",
         title: "Three calculators, one model",
-        body: "Value estimate, discretionary earnings and value gap share the same engine, so the figures agree with each other.",
-      },
-      {
-        index: "03",
-        title: "Built to be embedded",
-        body: "Next.js and Tailwind, responsive down to a phone, so the tools sit inside the client's funnel rather than beside it.",
+        body: "Value estimate, discretionary earnings and value gap share the same engine, so the figures agree. Built in Next.js to embed inside the client's own funnel.",
       },
     ],
   },
@@ -89,17 +79,7 @@ export const SHOWCASES: Showcase[] = [
       {
         index: "02",
         title: "Every claim carries a citation",
-        body: "Answers arrive with their sources attached, and each citation is checked in code against the document it came from.",
-      },
-      {
-        index: "03",
-        title: "Confidence you can inspect",
-        body: "Scores are computed from retrieval and verification signals, not guessed by the model describing its own work.",
-      },
-      {
-        index: "04",
-        title: "Benchmarked against invention",
-        body: "A published benchmark catches models citing sentences they made up, so the guarantees are measured rather than claimed.",
+        body: "Each citation is checked in code against the document it came from, with confidence computed from real signals and a published benchmark that catches models citing sentences they invented.",
       },
     ],
   },
@@ -118,12 +98,7 @@ export const SHOWCASES: Showcase[] = [
       {
         index: "02",
         title: "Native, offline first",
-        body: "React Native and Expo on the front, FastAPI and SQLite behind it, so progress survives a lost connection.",
-      },
-      {
-        index: "03",
-        title: "Built to keep me honest",
-        body: "A personal project that had to survive daily use by its own author, which is a harsher reviewer than any test suite.",
+        body: "React Native and Expo on the front, FastAPI and SQLite behind it, so progress survives a lost connection. Built to survive daily use by its own author.",
       },
     ],
   },
