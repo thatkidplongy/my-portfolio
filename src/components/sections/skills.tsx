@@ -1,5 +1,4 @@
 import SectionLabel from "@/components/ui/SectionLabel";
-import RouteCta from "@/components/ui/RouteCta";
 import FillText from "@/components/ui/FillText";
 import { getTechIcon } from "@/lib/tech-icons";
 
@@ -105,10 +104,6 @@ const Skills = () => (
         new frameworks, tools and methodologies to stay current and ship better
         work.
       </p>
-
-      <div className="slide-up-and-fade mt-12">
-        <RouteCta href="/experience">Where I have used it</RouteCta>
-      </div>
     </div>
   </section>
 );

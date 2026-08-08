@@ -1,7 +1,7 @@
 /**
  * The projects that get the pinned scroll story, in page order: two client
  * projects first so a visitor meets the production work before the personal
- * work. Everything else lives on the projects route, since the treatment
+ * work. Everything else stays in the project list below, since the treatment
  * only reads as special while it is rare and each beat costs a viewport of
  * scroll.
  */

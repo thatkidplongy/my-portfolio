@@ -1,23 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
 import { scrollToSection, setScrollLocked } from "@/lib/smooth-scroll";
 
-interface NavItem {
-  name: string;
-  /** A section on the home page, or a route of its own. */
-  hash?: string;
-  route?: string;
-}
-
-const NAV_ITEMS: NavItem[] = [
-  { name: "About", hash: "#about" },
-  { name: "Featured", hash: "#featured" },
-  { name: "Projects", route: "/projects" },
-  { name: "Stack", hash: "#skills" },
-  { name: "Experience", route: "/experience" },
-  { name: "Contact", hash: "#contact" },
+const NAV_ITEMS = [
+  { name: "About", href: "#about" },
+  { name: "Featured", href: "#featured" },
+  { name: "Projects", href: "#projects" },
+  { name: "Stack", href: "#skills" },
+  { name: "Experience", href: "#experience" },
+  { name: "Contact", href: "#contact" },
 ];
 
 const EMAIL = "fgclavano@gmail.com";
@@ -28,8 +20,6 @@ const EMAIL = "fgclavano@gmail.com";
  */
 const Navigation = () => {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
 
   useEffect(() => {
     setScrollLocked(open);
@@ -42,22 +32,10 @@ const Navigation = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const go = (item: NavItem) => {
+  const go = (href: string) => {
     setOpen(false);
-
-    // Let the overlay start clearing before navigating or scrolling.
-    setTimeout(() => {
-      if (item.route) {
-        router.push(item.route);
-        return;
-      }
-      if (!item.hash) return;
-
-      // Section links only resolve on the home page; from a route, go home
-      // and let it scroll once the section exists.
-      if (pathname === "/") scrollToSection(item.hash);
-      else router.push(`/${item.hash}`);
-    }, 300);
+    // Let the overlay start clearing before the scroll begins.
+    setTimeout(() => scrollToSection(href), 300);
   };
 
   return (
@@ -100,7 +78,7 @@ const Navigation = () => {
               <li key={item.name} className="overflow-hidden">
                 <button
                   tabIndex={open ? 0 : -1}
-                  onClick={() => go(item)}
+                  onClick={() => go(item.href)}
                   className="display flex items-baseline gap-6 text-[13vw] text-muted transition-colors duration-300 hover:text-signal lg:text-[7rem]"
                 >
                   <span

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,13 +12,8 @@ import { scrollToSection, setLenis } from "@/lib/smooth-scroll";
  *
  * The reveal classes are declared in globals.css so the initial hidden state
  * is painted before JS runs; this component only animates them back in.
- *
- * Re-runs on every route change so each page gets a fresh Lenis instance and
- * its own reveal triggers, rather than inheriting the previous page's.
  */
 const SmoothScroll = () => {
-  const pathname = usePathname();
-
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -86,9 +80,8 @@ const SmoothScroll = () => {
 
     ScrollTrigger.refresh();
 
-    // A section link followed from another route arrives as /#section, which
-    // Lenis has to finish rather than the browser: scroll once the page has
-    // mounted. The hash is left in place so the URL stays shareable.
+    // A shared /#section link has to be finished by Lenis rather than the
+    // browser, since Lenis owns the scroll position once it is running.
     const { hash } = window.location;
     if (hash) requestAnimationFrame(() => scrollToSection(hash));
 
@@ -98,7 +91,7 @@ const SmoothScroll = () => {
       lenis?.destroy();
       setLenis(null);
     };
-  }, [pathname]);
+  }, []);
 
   return null;
 };
