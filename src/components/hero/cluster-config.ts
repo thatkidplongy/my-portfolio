@@ -20,6 +20,9 @@ export const RING_B_RADIUS = 1.35;
 export const ELECTRON_A_SPEED = 1.7;
 export const ELECTRON_B_SPEED = -1.1;
 
+/** Chip rotation in rad/s: a slow turn about its own vertical axis. */
+export const CORE_SPIN_SPEED = 0.35;
+
 /** Random electric sparks that flash around the cluster. */
 export const SPARK_COUNT = 4;
 export const SPARK_LIFE_S = 0.35;

@@ -17,6 +17,7 @@ import {
 
 export interface ClusterProps {
   pieceRefs: React.RefObject<THREE.Group[]>;
+  core: React.RefObject<THREE.Group | null>;
   ringA: React.RefObject<THREE.Group | null>;
   ringB: React.RefObject<THREE.Group | null>;
   shardOrbit: React.RefObject<THREE.Group | null>;
@@ -35,6 +36,7 @@ export interface ClusterProps {
  */
 const Cluster = ({
   pieceRefs,
+  core,
   ringA,
   ringB,
   shardOrbit,
@@ -52,7 +54,7 @@ const Cluster = ({
     <group>
       {/* Core: an IC package — the hardware the electrons orbit. */}
       <group ref={(el) => register(el, piece++)} scale={0}>
-        <group rotation={[0.5, 0.7, 0.08]}>
+        <group ref={core} rotation={[0.5, 0.7, 0.08]}>
           <mesh>
             <boxGeometry args={[CHIP_HALF * 2, 0.2, CHIP_HALF * 2]} />
             <meshStandardMaterial color={CORE_COLOR} roughness={0.4} />

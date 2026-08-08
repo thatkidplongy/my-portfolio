@@ -7,6 +7,7 @@ import { useCursor } from "@react-three/drei";
 import gsap from "gsap";
 import Cluster from "@/components/hero/Cluster";
 import {
+  CORE_SPIN_SPEED,
   ELECTRON_A_SPEED,
   ELECTRON_B_SPEED,
   RING_A_RADIUS,
@@ -29,6 +30,7 @@ const ClusterRig = () => {
   const floatGroup = useRef<THREE.Group>(null);
   const spinGroup = useRef<THREE.Group>(null);
   const pieceRefs = useRef<THREE.Group[]>([]);
+  const core = useRef<THREE.Group>(null);
   const ringA = useRef<THREE.Group>(null);
   const ringB = useRef<THREE.Group>(null);
   const shardOrbit = useRef<THREE.Group>(null);
@@ -149,6 +151,7 @@ const ClusterRig = () => {
     if (!float || !parallax) return;
 
     float.position.y = Math.sin(clock.getElapsedTime() * 0.9) * 0.06;
+    if (core.current) core.current.rotation.y += delta * CORE_SPIN_SPEED;
     if (shardOrbit.current) shardOrbit.current.rotation.y += delta * 0.12;
 
     advanceElectrons(delta);
@@ -223,6 +226,7 @@ const ClusterRig = () => {
           <group ref={spinGroup}>
             <Cluster
               pieceRefs={pieceRefs}
+              core={core}
               ringA={ringA}
               ringB={ringB}
               shardOrbit={shardOrbit}
