@@ -5,7 +5,6 @@ import { scrollToSection, setScrollLocked } from "@/lib/smooth-scroll";
 
 const NAV_ITEMS = [
   { name: "About", href: "#about" },
-  { name: "Featured", href: "#featured" },
   { name: "Projects", href: "#projects" },
   { name: "Stack", href: "#skills" },
   { name: "Experience", href: "#experience" },
