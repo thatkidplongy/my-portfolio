@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight, Github } from "lucide-react";
-import type { Showcase } from "@/lib/showcases";
+import { DEFAULT_FOCUS, type Showcase } from "@/lib/showcases";
 import { prefersReducedMotion } from "@/lib/utils/motion";
 
 /** Viewport heights of scroll per beat; also the tall section's height unit. */
@@ -66,8 +66,14 @@ const ShowcaseStory = ({ showcase, reversed = false }: ShowcaseStoryProps) => {
           );
         }
 
-        // Each beat holds the stage, then hands over to the next.
+        // Each beat holds the stage, then hands over to the next. Its frame
+        // crossfades on the same schedule, so the image the visitor is
+        // looking at always belongs to the words they are reading.
+        const frames = gsap.utils.toArray<HTMLElement>("[data-frame]");
+
         beats.forEach((beat, i) => {
+          const frame = frames[i];
+
           if (i > 0) {
             tl.fromTo(
               beat,
@@ -75,9 +81,20 @@ const ShowcaseStory = ({ showcase, reversed = false }: ShowcaseStoryProps) => {
               { autoAlpha: 1, y: 0, duration: 0.35 },
               i
             );
+            if (frame) {
+              tl.fromTo(
+                frame,
+                { autoAlpha: 0 },
+                { autoAlpha: 1, duration: 0.35 },
+                i
+              );
+            }
           }
+
           if (i < beats.length - 1) {
             tl.to(beat, { autoAlpha: 0, y: -30, duration: 0.35 }, i + 0.65);
+            // Frames stay put once shown: the incoming one fades over the
+            // top, which avoids a flash of empty stage between beats.
           }
         });
       });
@@ -163,13 +180,36 @@ const ShowcaseStory = ({ showcase, reversed = false }: ShowcaseStoryProps) => {
                 data-shot
                 className="slide-up-and-fade relative aspect-[16/10] w-full overflow-hidden border border-line bg-elevated"
               >
-                <Image
-                  src={showcase.image}
-                  alt={showcase.imageAlt}
-                  fill
-                  sizes="(min-width: 1024px) 45vw, 100vw"
-                  className="object-cover object-top"
-                />
+                {showcase.beats.map((beat, i) => {
+                  const focus = beat.focus ?? DEFAULT_FOCUS;
+
+                  return (
+                    <div
+                      key={beat.index}
+                      data-frame
+                      /* Stacked frames: beat one is visible from the start,
+                         the rest fade in over it as the story advances.
+                         On mobile only the first is kept, since the beats
+                         are a plain list there. */
+                      className={`absolute inset-0 ${
+                        i > 0 ? "hidden lg:block lg:invisible lg:opacity-0" : ""
+                      }`}
+                    >
+                      <Image
+                        src={beat.image ?? showcase.image}
+                        alt={beat.image ? beat.title : showcase.imageAlt}
+                        fill
+                        priority={i === 0}
+                        sizes="(min-width: 1024px) 45vw, 100vw"
+                        className="object-cover transition-[object-position,transform] duration-700 ease-out"
+                        style={{
+                          objectPosition: `${focus.x}% ${focus.y}%`,
+                          transform: `scale(${focus.scale})`,
+                        }}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
