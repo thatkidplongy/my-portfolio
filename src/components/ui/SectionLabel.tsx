@@ -2,7 +2,7 @@ const Asterisk = () => (
   <svg
     viewBox="0 0 24 24"
     aria-hidden="true"
-    className="h-5 w-5 shrink-0 animate-[spin_9s_linear_infinite] text-signal"
+    className="h-8 w-8 shrink-0 animate-[spin_9s_linear_infinite] text-signal md:h-11 md:w-11"
     fill="currentColor"
   >
     {[0, 60, 120].map((angle) => (
@@ -20,15 +20,14 @@ const Asterisk = () => (
 );
 
 /**
- * The repeated section opener: a slowly rotating asterisk beside a small
- * uppercase label. Every section on the page starts with one.
+ * The repeated section opener: a slowly rotating asterisk beside the section
+ * name set in display type, so each section announces itself at the same
+ * scale as the headlines rather than as fine print.
  */
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <div className="slide-up-and-fade mb-12 flex items-center gap-4">
+  <div className="slide-up-and-fade mb-10 flex items-center gap-5">
     <Asterisk />
-    <h2 className="text-sm uppercase leading-none tracking-[0.2em] text-body">
-      {children}
-    </h2>
+    <h2 className="display text-5xl leading-none md:text-7xl">{children}</h2>
   </div>
 );
 

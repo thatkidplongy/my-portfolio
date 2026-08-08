@@ -8,7 +8,7 @@ import { SHOWCASES } from "@/lib/showcases";
  */
 const Showcases = () => (
   <section id="featured" className="py-section lg:pb-0">
-    <div className="container-x lg:mb-16">
+    <div className="container-x">
       <SectionLabel>Featured</SectionLabel>
     </div>
 

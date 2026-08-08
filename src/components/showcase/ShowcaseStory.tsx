@@ -99,7 +99,10 @@ const ShowcaseStory = ({ showcase, reversed = false }: ShowcaseStoryProps) => {
       }}
     >
       <div className="lg:h-[var(--story-height)]">
-        <div className="container-x lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center lg:overflow-hidden">
+        {/* Top aligned rather than centred: centring inside a full viewport
+            left a screenful of dead space between the section label and the
+            first story. */}
+        <div className="container-x lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-start lg:overflow-hidden lg:pt-24">
           <div className="grid w-full items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <div
               className={`lg:relative lg:min-h-[24rem] ${
