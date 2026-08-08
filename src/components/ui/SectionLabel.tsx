@@ -2,7 +2,7 @@ const Asterisk = () => (
   <svg
     viewBox="0 0 24 24"
     aria-hidden="true"
-    className="h-8 w-8 shrink-0 animate-[spin_9s_linear_infinite] text-signal md:h-11 md:w-11"
+    className="h-7 w-7 shrink-0 animate-[spin_9s_linear_infinite] text-signal md:h-9 md:w-9"
     fill="currentColor"
   >
     {[0, 60, 120].map((angle) => (
@@ -27,7 +27,7 @@ const Asterisk = () => (
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
   <div className="slide-up-and-fade mb-10 flex items-center gap-5">
     <Asterisk />
-    <h2 className="display text-5xl leading-none md:text-7xl">{children}</h2>
+    <h2 className="display text-4xl leading-none md:text-6xl">{children}</h2>
   </div>
 );
 
