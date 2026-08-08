@@ -1,4 +1,5 @@
 import SectionLabel from "@/components/ui/SectionLabel";
+import RouteCta from "@/components/ui/RouteCta";
 import FillText from "@/components/ui/FillText";
 import { getTechIcon } from "@/lib/tech-icons";
 
@@ -66,17 +67,17 @@ const Skills = () => (
     <div className="container-x">
       <SectionLabel>My Stack</SectionLabel>
 
-      <div className="space-y-16">
+      <div className="space-y-10">
         {STACK.map((group) => (
           <div
             key={group.title}
-            className="grid gap-6 border-t border-line pt-8 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-12"
+            className="grid gap-4 border-t border-line pt-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-12"
           >
             <h3 className="slide-up-and-fade display text-4xl text-muted md:text-5xl">
               <FillText>{group.title}</FillText>
             </h3>
 
-            <ul className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3 lg:pt-1">
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-3 lg:grid-cols-4 lg:pt-1">
               {group.skills.map((skill) => {
                 const { Icon, color } = getTechIcon(skill);
 
@@ -99,11 +100,15 @@ const Skills = () => (
         ))}
       </div>
 
-      <p className="slide-up-and-fade mt-20 max-w-3xl text-xl font-extralight leading-relaxed text-muted md:text-2xl">
+      <p className="slide-up-and-fade mt-14 max-w-3xl text-xl font-extralight leading-relaxed text-muted md:text-2xl">
         Technology moves fast, so I keep moving with it, regularly picking up
         new frameworks, tools and methodologies to stay current and ship better
         work.
       </p>
+
+      <div className="slide-up-and-fade mt-12">
+        <RouteCta href="/experience">Where I have used it</RouteCta>
+      </div>
     </div>
   </section>
 );

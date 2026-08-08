@@ -1,3 +1,4 @@
+import { ChevronDown } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ScrollToButton from "@/components/ui/ScrollToButton";
 import FillText from "@/components/ui/FillText";
@@ -158,16 +159,56 @@ const EXPERIENCES: Experience[] = [
   },
 ];
 
+const AchievementList = ({ achievements }: { achievements: string[] }) => (
+  <ul className="mt-5 space-y-2">
+    {achievements.map((achievement) => (
+      <li key={achievement} className="flex gap-3 leading-relaxed text-muted">
+        <span
+          aria-hidden="true"
+          className="mt-[0.6em] inline-block h-1 w-1 shrink-0 rounded-full bg-signal"
+        />
+        <span>{achievement}</span>
+      </li>
+    ))}
+  </ul>
+);
+
+interface AchievementsProps {
+  achievements: string[];
+  collapsible: boolean;
+}
+
+/**
+ * Native disclosure rather than React state: it works before hydration and
+ * gives keyboard and screen reader behaviour for free.
+ */
+const Achievements = ({ achievements, collapsible }: AchievementsProps) => {
+  if (!collapsible) return <AchievementList achievements={achievements} />;
+
+  return (
+    <details className="group mt-5">
+      <summary className="inline-flex cursor-pointer list-none items-center gap-2 text-sm uppercase tracking-[0.15em] text-faint transition-colors duration-300 hover:text-signal">
+        <ChevronDown
+          className="h-4 w-4 transition-transform duration-300 group-open:rotate-180"
+          aria-hidden="true"
+        />
+        {achievements.length} highlights
+      </summary>
+      <AchievementList achievements={achievements} />
+    </details>
+  );
+};
+
 const Experience = () => (
   <section id="experience" className="pb-section">
     <div className="container-x">
       <SectionLabel>My Experience</SectionLabel>
 
       <div>
-        {EXPERIENCES.map((job) => (
+        {EXPERIENCES.map((job, i) => (
           <article
             key={job.id}
-            className="grid gap-8 border-t border-line py-12 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)] lg:gap-16"
+            className="grid gap-6 border-t border-line py-9 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-16"
           >
             <header className="slide-up-and-fade">
               <p className="text-muted">{job.company}</p>
@@ -185,22 +226,15 @@ const Experience = () => (
                 {job.description}
               </p>
 
-              <ul className="mt-6 space-y-2">
-                {job.achievements.map((achievement) => (
-                  <li
-                    key={achievement}
-                    className="flex gap-3 leading-relaxed text-muted"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="mt-[0.6em] inline-block h-1 w-1 shrink-0 rounded-full bg-signal"
-                    />
-                    <span>{achievement}</span>
-                  </li>
-                ))}
-              </ul>
+              {/* The current role is open; earlier ones keep every bullet
+                  but fold them away, so the page scans as a career rather
+                  than a wall of thirty three lines. */}
+              <Achievements
+                achievements={job.achievements}
+                collapsible={i > 0}
+              />
 
-              <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
+              <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
                 {job.technologies.map((tech) => {
                   const { Icon, color } = getTechIcon(tech);
 
@@ -224,7 +258,7 @@ const Experience = () => (
         ))}
       </div>
 
-      <div className="mt-20 border-t border-line pt-16">
+      <div className="mt-14 border-t border-line pt-12">
         <p className="slide-up-and-fade mb-8 max-w-2xl text-2xl font-extralight text-muted md:text-3xl">
           Looking for an engineer who can take a feature from schema to screen?
         </p>

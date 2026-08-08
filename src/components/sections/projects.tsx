@@ -71,6 +71,25 @@ const PROJECTS: Project[] = [
     githubUrl: "",
   },
   {
+    id: "11",
+    category: "personal",
+    title: "rag-bedrock",
+    summary:
+      "A local-first RAG pipeline that indexes markdown, text and PDFs into Postgres with pgvector, answers questions from them with citations, and says nothing rather than guessing when the corpus does not cover the question",
+    image: "/rag-bedrock.png",
+    techStack: [
+      "RAG",
+      "Python",
+      "LangChain",
+      "pgvector",
+      "PostgreSQL",
+      "Ollama",
+      "Amazon Bedrock",
+      "Typer",
+    ],
+    githubUrl: "https://github.com/thatkidplongy/rag-bedrock",
+  },
+  {
     id: "10",
     category: "personal",
     title: "DocSight",

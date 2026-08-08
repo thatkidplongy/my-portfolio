@@ -1,4 +1,5 @@
 import SectionLabel from "@/components/ui/SectionLabel";
+import RouteCta from "@/components/ui/RouteCta";
 import ShowcaseStory from "@/components/showcase/ShowcaseStory";
 import { SHOWCASES } from "@/lib/showcases";
 
@@ -19,6 +20,10 @@ const Showcases = () => (
         reversed={i % 2 === 1}
       />
     ))}
+
+    <div className="container-x slide-up-and-fade pt-16 lg:pt-24">
+      <RouteCta href="/projects">See all projects</RouteCta>
+    </div>
   </section>
 );
 
