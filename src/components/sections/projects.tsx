@@ -37,7 +37,8 @@ const PROJECTS: Project[] = [
     id: "1",
     category: "production",
     title: "Before You Buy",
-    summary: "A single place for all your property reports",
+    summary:
+      "Property buyers in Australia order building, pest and strata reports through one funnel instead of chasing separate inspectors and inboxes. Ordering, payments, documents and CRM each run as their own service behind schema first GraphQL, and the platform serves buyers daily.",
     image: "/beforeyoubuy.png",
     techStack: [
       "React (Vite)",
@@ -56,7 +57,8 @@ const PROJECTS: Project[] = [
     id: "2",
     category: "production",
     title: "Backyard",
-    summary: "Admin dashboard for Before You Buy",
+    summary:
+      "The operations side of Before You Buy, where staff work the orders the public site takes in: tracking each job through inspection, managing the report documents that go back to buyers, and keeping customer records straight across the same microservices.",
     image: "/backyard.png",
     techStack: [
       "React (Vite)",
@@ -152,7 +154,7 @@ const PROJECTS: Project[] = [
     category: "production",
     title: "Exit on Your Terms",
     summary:
-      "Business value estimate, discretionary earnings and value gap calculators",
+      "Business owners planning an exit get a value estimate from their own numbers, without booking a formal valuation first. Three calculators, value estimate, discretionary earnings and value gap, share one engine so the figures always agree, built to embed inside the client's own funnel.",
     image: "/eoyt.png",
     techStack: [
       "Next.js",
@@ -169,7 +171,8 @@ const PROJECTS: Project[] = [
     id: "5",
     category: "production",
     title: "UBX Training",
-    summary: "Training, franchise and camp websites with print templates",
+    summary:
+      "Public websites for a fitness franchise, covering member signup, franchise enquiries and training camps across mobile, tablet and desktop. Marketing and print teams produce their own collateral from templates that render to PDF through Puppeteer.",
     image: "/ubx-training.png",
     techStack: [
       "Next.js",
