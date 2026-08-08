@@ -3,8 +3,9 @@ import { Anton, Roboto_Flex } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/ui/navigation";
 import Preloader from "@/components/ui/Preloader";
-import ParticleField from "@/components/ui/ParticleField";
 import ScrollProgress from "@/components/ui/ScrollProgress";
+import BackToTopButton from "@/components/ui/BackToTopButton";
+import RollingBall from "@/components/ui/RollingBall";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 
 const anton = Anton({
@@ -63,11 +64,14 @@ export default function RootLayout({
           <style>{`.slide-up-and-fade,.slide-up,.reveal-mask>*{opacity:1!important;transform:none!important}`}</style>
         </noscript>
 
-        <ParticleField />
+        {/* Hidden while trying the rolling ball as the single background
+            ornament; restore by re-adding <ParticleField />. */}
+        <RollingBall />
         <Preloader />
         <SmoothScroll />
         <Navigation />
         <ScrollProgress />
+        <BackToTopButton />
         <main className="relative z-10">{children}</main>
       </body>
     </html>

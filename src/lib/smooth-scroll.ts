@@ -20,6 +20,15 @@ export const setScrollLocked = (locked: boolean) => {
   document.body.style.overflow = locked ? "hidden" : "";
 };
 
+export const scrollToTop = () => {
+  if (instance) {
+    instance.scrollTo(0, { duration: 1.4 });
+  } else {
+    // Lenis is disabled under prefers-reduced-motion.
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }
+};
+
 export const scrollToSection = (selector: string) => {
   const element = document.querySelector(selector);
   if (!element) return;
