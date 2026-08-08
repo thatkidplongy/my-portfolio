@@ -38,7 +38,7 @@ const About = () => (
 
           <div className="mt-8 max-w-2xl space-y-6 text-lg leading-relaxed text-muted">
             <p className="slide-up-and-fade">
-              I trained as an{" "}
+              I studied as an{" "}
               <span className="text-signal">
                 Electronics and Communications Engineer
               </span>{" "}

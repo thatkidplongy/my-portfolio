@@ -24,16 +24,12 @@ const EXPERIENCES: Experience[] = [
     description:
       "Building AI powered features on AWS Bedrock for a property inspection SaaS platform, alongside full stack product work across its microservices.",
     achievements: [
-      "Spearheaded an AI powered strata inspection report platform on AWS Bedrock (Claude), with LLM answer suggestions, confidence scoring, citation tracking and PDF source highlighting, cutting manual report writing time for inspectors",
-      "Architected an end to end Data as a Service pipeline, from report upload trigger through Bedrock extraction and matching to structured JSON for downstream services, benchmarked across 500+ historical reports",
-      "Led the vendor migration from OpenAI and LangChain to AWS Bedrock and connected the backend to an MCP server for LLM summaries, lowering external API costs and improving reliability across 20+ validated real world scenarios",
-      "Built the document intelligence flow end to end: multi file PDF upload with progress tracking, AI extraction, field pre population and an LLM property matching service linking source data across services",
-      "Delivered 30+ features across 8+ microservices using React, Next.js, TypeScript, GraphQL with Apollo, Node.js, Sequelize and PostgreSQL",
-      "Built a real time collaborative report editor with Google Docs style undo and redo, version history with one click restore, and WYSIWYG to PDF parity",
-      "Designed async document duplication on AWS S3 and Lambda, copying reports with all attachments in seconds, and owned schema first GraphQL design, DB migrations and ER and sequence diagrams per feature",
-      "Shipped state specific compliance forms and a product bundling and discount engine across admin and consumer order funnels, supporting new revenue streams",
-      "Integrated payments and CRM: Stripe V2, SellSmart B2B lead capture and HubSpot sync with real time deals, stage automation and 24 month order backfills",
-      "Served as Release Manager across multiple production cycles, coordinating cross team QA, hotfixes and deployments, and standardised CI/CD on CircleCI and Vercel",
+      "Spearheaded an AI strata inspection report platform on AWS Bedrock (Claude), with answer suggestions, confidence scores and cited PDF sources, cutting manual report writing time for inspectors",
+      "Architected a Data as a Service pipeline from report upload to structured JSON via Bedrock extraction, benchmarked across 500+ historical reports",
+      "Led the migration from OpenAI and LangChain to Bedrock plus an MCP server for LLM summaries, lowering API costs and improving reliability",
+      "Built a real time collaborative report editor with version history, one click restore and WYSIWYG to PDF parity",
+      "Delivered 30+ features across 8+ microservices, from Stripe and HubSpot integrations to compliance forms and a product bundling engine",
+      "Served as Release Manager, coordinating cross team QA, hotfixes and CI/CD on CircleCI and Vercel",
     ],
     technologies: [
       "AWS Bedrock",
