@@ -24,7 +24,24 @@ const robotoFlex = Roboto_Flex({
 const DESCRIPTION =
   "Electronics and Communications Engineer turned Software Engineer, with 5+ years shipping production web apps and AI powered features on AWS Bedrock.";
 
+/**
+ * Open Graph and Twitter images are served from the app directory as relative
+ * paths; crawlers need absolute URLs, so Next has to be told the origin.
+ * Vercel exposes it at build time, and NEXT_PUBLIC_SITE_URL overrides it for a
+ * custom domain.
+ */
+const resolveSiteUrl = () => {
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return new URL(process.env.NEXT_PUBLIC_SITE_URL);
+  }
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return new URL(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`);
+  }
+  return new URL("http://localhost:3000");
+};
+
 export const metadata: Metadata = {
+  metadataBase: resolveSiteUrl(),
   title: "Florante G. Clavano Jr. | Full Stack Engineer",
   description: DESCRIPTION,
   keywords: [
