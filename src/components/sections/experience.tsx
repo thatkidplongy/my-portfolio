@@ -173,14 +173,11 @@ const AchievementList = ({ achievements }: { achievements: string[] }) => (
 );
 
 /**
- * A direct grid child rather than part of the header: the grid puts the panel
- * beside the description on desktop while it still falls last in source order,
- * which is where it belongs once the layout collapses to one column.
  * Short travel reveal, not the long one: at 150px the panel leaves a visible
- * hole under the bullets while it waits for its trigger.
+ * hole beneath the job title while it waits for its trigger.
  */
 const TechList = ({ technologies }: { technologies: string[] }) => (
-  <div className="slide-up border border-line bg-elevated p-5 lg:col-start-1 lg:row-start-2">
+  <div className="slide-up border border-line bg-elevated p-5">
     <ul className="flex flex-wrap gap-x-4 gap-y-3">
       {technologies.map((tech) => {
         const { Icon, color } = getTechIcon(tech);
@@ -209,28 +206,30 @@ const Experience = () => (
         {EXPERIENCES.map((job) => (
           <article
             key={job.id}
-            className="grid gap-6 border-t border-line py-9 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-x-16 lg:gap-y-6"
+            className="flex flex-col gap-6 border-t border-line py-9 lg:flex-row lg:gap-16"
           >
-            <header className="slide-up-and-fade">
-              <p className="text-muted">{job.company}</p>
-              <h3 className="display mt-2 text-3xl md:text-4xl">
-                <FillText>{job.position}</FillText>
-              </h3>
-              <p className="mt-3 text-sm uppercase tracking-[0.15em] text-faint">
-                {job.period}
-              </p>
-              <p className="mt-1 text-sm text-faint">{job.location}</p>
-            </header>
+            <div className="flex flex-col gap-6 lg:w-[340px] lg:shrink-0">
+              <header className="slide-up-and-fade">
+                <p className="text-muted">{job.company}</p>
+                <h3 className="display mt-2 text-3xl md:text-4xl">
+                  <FillText>{job.position}</FillText>
+                </h3>
+                <p className="mt-3 text-sm uppercase tracking-[0.15em] text-faint">
+                  {job.period}
+                </p>
+                <p className="mt-1 text-sm text-faint">{job.location}</p>
+              </header>
 
-            <div className="slide-up-and-fade lg:col-start-2 lg:row-span-2 lg:row-start-1">
+              <TechList technologies={job.technologies} />
+            </div>
+
+            <div className="slide-up-and-fade lg:min-w-0 lg:flex-1">
               <p className="text-lg leading-relaxed text-body">
                 {job.description}
               </p>
 
               <AchievementList achievements={job.achievements} />
             </div>
-
-            <TechList technologies={job.technologies} />
           </article>
         ))}
       </div>
