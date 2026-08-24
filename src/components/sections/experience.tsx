@@ -173,6 +173,30 @@ const AchievementList = ({ achievements }: { achievements: string[] }) => (
   </ul>
 );
 
+/**
+ * Placed as a direct grid child rather than nested in the header: that lets the
+ * grid put it under the job title on desktop while it still falls last in
+ * source order, which is where it belongs on a single column phone layout.
+ */
+const TechList = ({ technologies }: { technologies: string[] }) => (
+  <ul className="slide-up-and-fade flex flex-wrap gap-x-4 gap-y-2 lg:col-start-1 lg:row-start-2">
+    {technologies.map((tech) => {
+      const { Icon, color } = getTechIcon(tech);
+
+      return (
+        <li key={tech} className="flex items-center gap-2 text-sm text-muted">
+          <Icon
+            className="h-5 w-5 shrink-0"
+            style={{ color }}
+            aria-hidden="true"
+          />
+          {tech}
+        </li>
+      );
+    })}
+  </ul>
+);
+
 interface AchievementsProps {
   achievements: string[];
   collapsible: boolean;
@@ -208,7 +232,7 @@ const Experience = () => (
         {EXPERIENCES.map((job, i) => (
           <article
             key={job.id}
-            className="grid gap-6 border-t border-line py-9 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-16"
+            className="grid gap-6 border-t border-line py-9 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-x-16 lg:gap-y-6"
           >
             <header className="slide-up-and-fade">
               <p className="text-muted">{job.company}</p>
@@ -221,7 +245,7 @@ const Experience = () => (
               <p className="mt-1 text-sm text-faint">{job.location}</p>
             </header>
 
-            <div className="slide-up-and-fade">
+            <div className="slide-up-and-fade lg:col-start-2 lg:row-span-2 lg:row-start-1">
               <p className="text-lg leading-relaxed text-body">
                 {job.description}
               </p>
@@ -233,27 +257,9 @@ const Experience = () => (
                 achievements={job.achievements}
                 collapsible={i > 0}
               />
-
-              <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-                {job.technologies.map((tech) => {
-                  const { Icon, color } = getTechIcon(tech);
-
-                  return (
-                    <li
-                      key={tech}
-                      className="flex items-center gap-2 text-sm text-muted"
-                    >
-                      <Icon
-                        className="h-5 w-5 shrink-0"
-                        style={{ color }}
-                        aria-hidden="true"
-                      />
-                      {tech}
-                    </li>
-                  );
-                })}
-              </ul>
             </div>
+
+            <TechList technologies={job.technologies} />
           </article>
         ))}
       </div>
