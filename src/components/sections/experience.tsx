@@ -173,29 +173,31 @@ const AchievementList = ({ achievements }: { achievements: string[] }) => (
 );
 
 /**
- * Placed as a direct grid child rather than nested in the header: that lets the
- * grid put it under the job title on desktop while it still falls last in
- * source order, which is where it belongs on a single column phone layout.
- * Short travel reveal, not the long one: at 150px the row leaves a visible
+ * A direct grid child rather than part of the header: the grid puts the panel
+ * beside the description on desktop while it still falls last in source order,
+ * which is where it belongs once the layout collapses to one column.
+ * Short travel reveal, not the long one: at 150px the panel leaves a visible
  * hole under the bullets while it waits for its trigger.
  */
 const TechList = ({ technologies }: { technologies: string[] }) => (
-  <ul className="slide-up flex flex-wrap gap-x-4 gap-y-2 lg:col-start-1 lg:row-start-2">
-    {technologies.map((tech) => {
-      const { Icon, color } = getTechIcon(tech);
+  <div className="slide-up border border-line bg-elevated p-5 lg:col-start-1 lg:row-start-2">
+    <ul className="flex flex-wrap gap-x-4 gap-y-3">
+      {technologies.map((tech) => {
+        const { Icon, color } = getTechIcon(tech);
 
-      return (
-        <li key={tech} className="flex items-center gap-2 text-sm text-muted">
-          <Icon
-            className="h-5 w-5 shrink-0"
-            style={{ color }}
-            aria-hidden="true"
-          />
-          {tech}
-        </li>
-      );
-    })}
-  </ul>
+        return (
+          <li key={tech} className="flex items-center gap-2 text-sm text-muted">
+            <Icon
+              className="h-5 w-5 shrink-0"
+              style={{ color }}
+              aria-hidden="true"
+            />
+            {tech}
+          </li>
+        );
+      })}
+    </ul>
+  </div>
 );
 
 const Experience = () => (
