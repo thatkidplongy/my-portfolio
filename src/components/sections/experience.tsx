@@ -1,4 +1,3 @@
-import { ChevronDown } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ScrollToButton from "@/components/ui/ScrollToButton";
 import FillText from "@/components/ui/FillText";
@@ -177,9 +176,11 @@ const AchievementList = ({ achievements }: { achievements: string[] }) => (
  * Placed as a direct grid child rather than nested in the header: that lets the
  * grid put it under the job title on desktop while it still falls last in
  * source order, which is where it belongs on a single column phone layout.
+ * Short travel reveal, not the long one: at 150px the row leaves a visible
+ * hole under the bullets while it waits for its trigger.
  */
 const TechList = ({ technologies }: { technologies: string[] }) => (
-  <ul className="slide-up-and-fade flex flex-wrap gap-x-4 gap-y-2 lg:col-start-1 lg:row-start-2">
+  <ul className="slide-up flex flex-wrap gap-x-4 gap-y-2 lg:col-start-1 lg:row-start-2">
     {technologies.map((tech) => {
       const { Icon, color } = getTechIcon(tech);
 
@@ -197,39 +198,13 @@ const TechList = ({ technologies }: { technologies: string[] }) => (
   </ul>
 );
 
-interface AchievementsProps {
-  achievements: string[];
-  collapsible: boolean;
-}
-
-/**
- * Native disclosure rather than React state: it works before hydration and
- * gives keyboard and screen reader behaviour for free.
- */
-const Achievements = ({ achievements, collapsible }: AchievementsProps) => {
-  if (!collapsible) return <AchievementList achievements={achievements} />;
-
-  return (
-    <details className="group mt-5">
-      <summary className="inline-flex cursor-pointer list-none items-center gap-2 text-sm uppercase tracking-[0.15em] text-faint transition-colors duration-300 hover:text-signal">
-        <ChevronDown
-          className="h-4 w-4 transition-transform duration-300 group-open:rotate-180"
-          aria-hidden="true"
-        />
-        {achievements.length} highlights
-      </summary>
-      <AchievementList achievements={achievements} />
-    </details>
-  );
-};
-
 const Experience = () => (
   <section id="experience" className="pb-section">
     <div className="container-x">
       <SectionLabel>My Experience</SectionLabel>
 
       <div>
-        {EXPERIENCES.map((job, i) => (
+        {EXPERIENCES.map((job) => (
           <article
             key={job.id}
             className="grid gap-6 border-t border-line py-9 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-x-16 lg:gap-y-6"
@@ -250,13 +225,7 @@ const Experience = () => (
                 {job.description}
               </p>
 
-              {/* The current role is open; earlier ones keep every bullet
-                  but fold them away, so the page scans as a career rather
-                  than a wall of thirty three lines. */}
-              <Achievements
-                achievements={job.achievements}
-                collapsible={i > 0}
-              />
+              <AchievementList achievements={job.achievements} />
             </div>
 
             <TechList technologies={job.technologies} />
