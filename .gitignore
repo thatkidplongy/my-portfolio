@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code — launch.json holds absolute paths to other repos on this
+# machine, and worktrees/ is transient. CLAUDE.md and CLAUDE_GOTCHAS.md are
+# tracked and live at the repo root, so they are unaffected.
+/.claude/
