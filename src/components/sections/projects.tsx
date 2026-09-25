@@ -73,6 +73,25 @@ const PROJECTS: Project[] = [
     githubUrl: "",
   },
   {
+    id: "12",
+    category: "personal",
+    title: "Courte",
+    summary:
+      "A court booking platform for sports venues: flexible durations instead of a fixed slot grid, recurring series, waitlists, walk-ins and an owner dashboard. Double booking is impossible by construction rather than by checking for it — a Postgres exclusion constraint arbitrates every claim, whichever code path writes it. A NestJS API and a Next.js app share one typed contract, and proximity search runs on PostGIS.",
+    image: "/courte.png",
+    techStack: [
+      "Next.js",
+      "NestJS",
+      "TypeScript",
+      "PostgreSQL",
+      "PostGIS",
+      "Tailwind CSS",
+      "Docker",
+      "Vitest",
+    ],
+    githubUrl: "https://github.com/thatkidplongy/courte",
+  },
+  {
     id: "10",
     category: "personal",
     title: "DocSight",
